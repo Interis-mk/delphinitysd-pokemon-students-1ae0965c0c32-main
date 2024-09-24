@@ -3,9 +3,6 @@ package general;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javax.annotation.processing.Generated;
-
 import battle.Attack;
 import trainer.Trainer;
 
