@@ -63,7 +63,7 @@ public class Area
     {
         return nextArea;
     }
-    //TODO: US-PKM-O-6
+
     public Pokemon getRandomPokemonFromArea(int level) 
     {
     	List<PokemonData> pokeData = Arrays.asList(PokemonData.values());

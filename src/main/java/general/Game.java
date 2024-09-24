@@ -147,7 +147,7 @@ public class Game {
 		}
 	}
 
-	// TODO: US-PKM-O-6
+
 	private static void findAndBattlePokemon() {
 		Pokemon randomPokemon = trainer.findPokemon();
 		Battle battle = trainer.battle(trainer.getActivePokemon(), randomPokemon);
@@ -195,7 +195,7 @@ public class Game {
 		return null;
 	}
 
-	// TODO: US-PKM-O-1
+
 	private static Pokemon chooseFirstPokemon() {
 		System.out.println("----------------");
 		System.out.println("Please choose one of these three pokemon");
@@ -229,7 +229,7 @@ public class Game {
 		return null;
 	}
 
-	// TODO: US-PKM-O-8
+
 	public static int i = 2;
 
 	private static void startGymBattle() {
@@ -258,7 +258,7 @@ public class Game {
 		}
 	}
 
-	// TODO: US-PKM-O-9
+
 	public static void awardBadge(String badgeName) {
 		Badge newBadge = new Badge(badgeName);
 		trainer.addBadge(newBadge);
@@ -272,7 +272,7 @@ public class Game {
 		quit();
 	}
 
-	// TODO: US-PKM-O-2:
+
 	private static void quit() {
 		System.out.println("----------------");
 		System.out.println("Goodbye");

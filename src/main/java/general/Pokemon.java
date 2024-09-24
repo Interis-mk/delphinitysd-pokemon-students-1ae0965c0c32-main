@@ -76,7 +76,6 @@ public class Pokemon {
 		return attacks;
 	}
 
-	// TODO: US-PKM-O-4E
 	private void evolve() {
 		System.out.println("----------------");
 		String oldPokemon = this.pokedata.name();
@@ -95,7 +94,6 @@ public class Pokemon {
 		System.out.println("Your " + oldPokemon + " Evolved into " + this.pokedata.name());
 	}
 
-	// TODO: US-PKM-O-4D
 	public void gainXp(int amount) {
 		if (currentXp + amount >= xpToNext) {
 			int remainingXp = (currentXp + amount) - xpToNext;
@@ -110,7 +108,6 @@ public class Pokemon {
 		}
 	}
 
-	// TODO: US-PKM-O-4C
 	private void levelUp() {
 		maxHp = maxHp + r.nextInt(maxHp / 10);
 		currentHp = currentHp + r.nextInt(currentHp / 10);
@@ -122,7 +119,7 @@ public class Pokemon {
 		System.out.println(pokedata.name() + " grew to level " + level);
 	}
 
-	// TODO: US-PKM-O-4E
+
 	private boolean evolveCheck() {
 		if (pokedata.evolvesIn != null && level >= pokedata.evolutionLevel) {
 			return true;
@@ -130,7 +127,7 @@ public class Pokemon {
 		return false;
 	}
 
-	// TODO: US-PKM-O-4
+
 	public void attack(Pokemon otherPokemon, Attack attack) {
 		int power = attack.getPower();
 		if (otherPokemon.getCurrentHp() - power < 0) {
@@ -140,7 +137,7 @@ public class Pokemon {
 		}
 	}
 
-	// TODO: US-PKM-O-4B
+
 	public Attack getRandomAttack() {
 		getAttacks();
 		int attackSize = getAttacks().size();
@@ -162,7 +159,7 @@ public class Pokemon {
 		System.out.println("----------------");
 	}
 
-	// TODO: US-PKM-O-5
+
 	public boolean isKnockout() {
 		if (currentHp <= 0) {
 			return true;

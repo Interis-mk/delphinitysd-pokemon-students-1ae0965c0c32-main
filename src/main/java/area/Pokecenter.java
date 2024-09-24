@@ -14,7 +14,6 @@ public class Pokecenter
         this.name = name;
     }
 
-    //TODO: US-PKM-O-12
     public void healPokemon(List<Pokemon> pokemonToHeal) 
     {
     	for(Pokemon p : pokemonToHeal)

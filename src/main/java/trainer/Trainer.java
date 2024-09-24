@@ -68,7 +68,6 @@ public class Trainer {
 		this.currentArea = currentArea;
 	}
 
-	// TODO: US-PKM-O-5:
 	public Battle battle(Pokemon myPokemon, Pokemon otherPokemon) {
 		if (myPokemon.getOwner() != null && myPokemon.getOwner().equals(this)) {
 			Battle battle = new Battle(myPokemon, otherPokemon, this);
@@ -78,7 +77,6 @@ public class Trainer {
 		}
 	}
 
-	// TODO: US-PKM-O-7
 	private boolean catchPokemon(Pokemon pokemon) {
 		if (pokemon.getOwner() != null) {
 			return false;
@@ -120,26 +118,22 @@ public class Trainer {
 		}
 	}
 
-	// TODO: US-PKM-O-8
 	public Battle challengeTrainer(Trainer opponent) {
 		Battle battle = battle(getActivePokemon(), opponent.activePokemon);
 		battle.start();
 		return battle;
 	}
 
-	// TODO: US-PKM-O-11
 	public void travel(Area area) {
 		currentArea = area;
 	}
 
-	// TODO: US-PKM-O-3
 	public void showPokemonColletion() {
 		for (Pokemon p : pokemonCollection) {
 			p.status();
 		}
 	}
 
-	// TODO: US-PKM-O-6
 	public Pokemon findPokemon() {
 		System.out.println("----------------");
 		System.out.println("Searching pokemon ");
@@ -170,7 +164,6 @@ public class Trainer {
 		return null;
 	}
 
-	// TODO: US-PKM-O-10
 	public void showBadges() {
 		for (Badge ShowBadge : badges) {
 			System.out.println(ShowBadge.getName());
@@ -178,12 +171,10 @@ public class Trainer {
 		}
 	}
 
-	// TODO: US-PKM-O-9
 	public void addBadge(Badge newBadge) {
 		badges.add(newBadge);
 	}
 
-	// TODO: US-PKM-O-5:
 	public boolean canBattle() {
 		for (Pokemon p : getPokemonCollection()) {
 			if (!p.isKnockout())
@@ -193,7 +184,6 @@ public class Trainer {
 		return false;
 	}
 
-	// TODO: US-PKM-O-12
 	public void visitPokeCenter(Pokecenter pokecenter) {
 		if (pokecenter != null) {
 			List<Pokemon> pokemonToHeal = getPokemonCollection();

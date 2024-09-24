@@ -13,6 +13,7 @@ public class Inventory
     {
         return items;
     }
+    
 //    public void addItem(int amount, ItemType type) 
 //      {
 //        int currentAmount = items.getOrDefault(type, 0);
@@ -24,6 +25,7 @@ public class Inventory
 //            items.put(type, amount);
 //        }
 //    }
+
     public void removeItem(ItemType type) 
     {
         int currentAmount = items.getOrDefault(type, 0);
