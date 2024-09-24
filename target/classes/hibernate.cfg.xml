@@ -21,8 +21,6 @@
 
 		<!-- Add annotated resources here -->
 		
-		<mapping class="nl.delphinity.sample_hibernate_project.domain.Employee"/>
-				<mapping class="nl.delphinity.sample_hibernate_project.domain.Bedrijf"/>
 	
 
 
