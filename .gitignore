@@ -1,4 +1,4 @@
+src/main/resources/hibernate.cfg.xml
 target/classes/hibernate.cfg.xml
 src/main/resources/hibernate.properties
 target/classes/hibernate.properties
-target/classes/hibernate.cfg.xml
