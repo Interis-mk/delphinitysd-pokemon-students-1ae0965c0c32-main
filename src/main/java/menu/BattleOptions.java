@@ -1,6 +1,5 @@
 package menu;
 
-public enum BattleOptions 
-{
+public enum BattleOptions {
     FIGHT, POKEMON, ITEM, RUN
 }

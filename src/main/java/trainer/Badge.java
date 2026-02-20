@@ -1,14 +1,13 @@
 package trainer;
 
-public class Badge 
-{
+public class Badge {
     private final String name;
-    public Badge(String name) 
-    {
+
+    public Badge(String name) {
         this.name = name;
     }
-    public String getName() 
-    {
+
+    public String getName() {
         return name;
     }
 

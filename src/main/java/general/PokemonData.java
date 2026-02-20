@@ -6,8 +6,7 @@ import java.util.List;
 
 import battle.Attack;
 
-public enum PokemonData 
-{
+public enum PokemonData {
     BULBASAUR(100, PokemonType.GRASS, 30, 15),
     IVYSAUR(100, PokemonType.GRASS, 30, 30),
     VENUSAUR(100, PokemonType.GRASS, 30, 0),
@@ -159,8 +158,7 @@ public enum PokemonData
     MEWTWO(100, PokemonType.PSYCHIC, 30, 15),
     MEW(100, PokemonType.PSYCHIC, 30, 15);
 
-    static 
-    {
+    static {
         PIKACHU.specificAttacks.addAll(Arrays.asList(
                 new Attack("Volt tackle", 80, 100),
                 new Attack("Static storm", 60, 100)));
@@ -174,38 +172,38 @@ public enum PokemonData
 
         CHARMANDER.art =
                 "               _.--\"\"`-\n" +
-                "            ,'          `.\n" +
-                "          ,'          __  `.\n" +
-                "         /|          \" __   \\\n" +
-                "        , |           / |.   .\n" +
-                "        |,'          !_.'|   |\n" +
-                "      ,'             '   |   |\n" +
-                "     /              |`--'|   |\n" +
-                "    |                `---'   |\n" +
-                "     .   ,                   |                       ,\".\n" +
-                "      ._     '           _'  |                    , ' \\ `\n" +
-                "  `.. `.`-...___,...---\"\"    |       __,.        ,`\"   L,|\n" +
-                "  |, `- .`._        _,-,.'   .  __.-'-. /        .   ,    \\\n" +
-                "-:..     `. `-..--_.,.<       `\"      / `.        `-/ |   .\n" +
-                "  `,         \"\"\"\"'     `.              ,'         |   |  ',,\n" +
-                "    `.      '            '            /          '    |'. |/\n" +
-                "      `.   |              \\       _,-'           |       ''\n" +
-                "        `._'               \\   '\"\\                .      |\n" +
-                "           |                '     \\                `._  ,'\n" +
-                "           |                 '     \\                 .'|\n" +
-                "           |                 .      \\                | |\n" +
-                "           |                 |       L              ,' |\n" +
-                "           `                 |       |             /   '\n" +
-                "            \\                |       |           ,'   /\n" +
-                "          ,' \\               |  _.._ ,-..___,..-'    ,'\n" +
-                "         /     .             .      `!             ,j'\n" +
-                "        /       `.          /        .           .'/\n" +
-                "       .          `.       /         |        _.'.'\n" +
-                "        `.          7`'---'          |------\"'_.'\n" +
-                "       _,.`,_     _'                ,''-----\"'\n" +
-                "   _,-_    '       `.     .'      ,\\\n" +
-                "   -\" /`.         _,'     | _  _  _.|\n" +
-                "    \"\"--'---\"\"\"\"\"'        `' '! |! /";
+                        "            ,'          `.\n" +
+                        "          ,'          __  `.\n" +
+                        "         /|          \" __   \\\n" +
+                        "        , |           / |.   .\n" +
+                        "        |,'          !_.'|   |\n" +
+                        "      ,'             '   |   |\n" +
+                        "     /              |`--'|   |\n" +
+                        "    |                `---'   |\n" +
+                        "     .   ,                   |                       ,\".\n" +
+                        "      ._     '           _'  |                    , ' \\ `\n" +
+                        "  `.. `.`-...___,...---\"\"    |       __,.        ,`\"   L,|\n" +
+                        "  |, `- .`._        _,-,.'   .  __.-'-. /        .   ,    \\\n" +
+                        "-:..     `. `-..--_.,.<       `\"      / `.        `-/ |   .\n" +
+                        "  `,         \"\"\"\"'     `.              ,'         |   |  ',,\n" +
+                        "    `.      '            '            /          '    |'. |/\n" +
+                        "      `.   |              \\       _,-'           |       ''\n" +
+                        "        `._'               \\   '\"\\                .      |\n" +
+                        "           |                '     \\                `._  ,'\n" +
+                        "           |                 '     \\                 .'|\n" +
+                        "           |                 .      \\                | |\n" +
+                        "           |                 |       L              ,' |\n" +
+                        "           `                 |       |             /   '\n" +
+                        "            \\                |       |           ,'   /\n" +
+                        "          ,' \\               |  _.._ ,-..___,..-'    ,'\n" +
+                        "         /     .             .      `!             ,j'\n" +
+                        "        /       `.          /        .           .'/\n" +
+                        "       .          `.       /         |        _.'.'\n" +
+                        "        `.          7`'---'          |------\"'_.'\n" +
+                        "       _,.`,_     _'                ,''-----\"'\n" +
+                        "   _,-_    '       `.     .'      ,\\\n" +
+                        "   -\" /`.         _,'     | _  _  _.|\n" +
+                        "    \"\"--'---\"\"\"\"\"'        `' '! |! /";
 
         BULBASAUR.art = "                                           /\n" +
                 "                        _,.------....___,.' ',.-.\n" +
@@ -282,8 +280,7 @@ public enum PokemonData
     public int evolutionLevel;
     public String art;
 
-    PokemonData(int maxHp, PokemonType pokemonType, int maxPp, int evolutionLevel) 
-    {
+    PokemonData(int maxHp, PokemonType pokemonType, int maxPp, int evolutionLevel) {
         this.maxHp = maxHp;
         this.pokemonType = pokemonType;
         this.maxPp = maxPp;

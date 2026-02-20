@@ -7,8 +7,7 @@ import java.util.List;
 
 import battle.Attack;
 
-public enum PokemonType 
-{
+public enum PokemonType {
     BUG,
     DRAGON,
     ICE,
@@ -25,8 +24,7 @@ public enum PokemonType
     ROCK,
     WATER;
 
-    static 
-    {
+    static {
         BUG.strongAgainst.addAll(Arrays.asList(GRASS, PSYCHIC));
         DRAGON.strongAgainst.addAll(Collections.singletonList(DRAGON));
         ICE.strongAgainst.addAll(Arrays.asList(FLYING, GROUND, GRASS, DRAGON));
@@ -126,6 +124,7 @@ public enum PokemonType
                 new Attack("Lick", 30, 100),
                 new Attack("Night Shade", 65, 100)));
     }
+
     public final List<PokemonType> weakAgainst = new ArrayList<>();
     public final List<PokemonType> strongAgainst = new ArrayList<>();
     public final List<Attack> typeAttacks = new ArrayList<>();

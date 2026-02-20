@@ -10,8 +10,7 @@ import general.PokemonData;
 import general.PokemonType;
 import trainer.GymLeader;
 
-public class Area 
-{
+public class Area {
 
     private final String name;
     private final Area nextArea;
@@ -21,8 +20,7 @@ public class Area
     private boolean isUnlocked;
     private GymLeader gymLeader;
 
-    public Area(String name, GymLeader gymLeader, boolean isUnlocked, Area nextArea, Pokecenter pokecenter) 
-    {
+    public Area(String name, GymLeader gymLeader, boolean isUnlocked, Area nextArea, Pokecenter pokecenter) {
         this.name = name;
         this.gymLeader = gymLeader;
         this.isUnlocked = isUnlocked;
@@ -30,71 +28,60 @@ public class Area
         this.pokecenter = pokecenter;
     }
 
-    public void setContainsPokemon(List<PokemonType> containsPokemon) 
-    {
+    public void setContainsPokemon(List<PokemonType> containsPokemon) {
         this.containsPokemon = containsPokemon;
     }
 
-    public String getName() 
-    {
+    public String getName() {
         return name;
     }
 
-    public boolean isUnlocked() 
-    {
+    public boolean isUnlocked() {
         return isUnlocked;
     }
 
-    public void setUnlocked(boolean unlocked) 
-    {
+    public void setUnlocked(boolean unlocked) {
         isUnlocked = unlocked;
     }
 
-    public GymLeader getGymLeader() 
-    {
+    public GymLeader getGymLeader() {
         return gymLeader;
     }
 
-    public void setGymLeader(GymLeader gymLeader) 
-    {	
+    public void setGymLeader(GymLeader gymLeader) {
         this.gymLeader = gymLeader;
     }
-    public Area getNextArea() 
-    {
+
+    public Area getNextArea() {
         return nextArea;
     }
 
-    public Pokemon getRandomPokemonFromArea(int level) 
-    {
-    	List<PokemonData> pokeData = Arrays.asList(PokemonData.values());
-    	ArrayList<PokemonData> collect = new ArrayList<>();
-    	for(PokemonData p : pokeData) 
-    	{
-    		if(containsPokemon.contains(p.pokemonType))
-    		{
-    			collect.add(p);
-    		}
-    	}
-    	int randomPokemonIndex = r.nextInt(collect.size());
-    	PokemonData randomPokemonData = collect.get(randomPokemonIndex);
-    	Pokemon randomPokemon = new Pokemon(randomPokemonData);
-    	int lowestLevel = level - 5 > 0 ? level - 5: level;
-    	int highestLevel = lowestLevel + level;
-    	int randomLevel = r.nextInt(highestLevel - lowestLevel);
-    	while(randomLevel <= 0) 
-    	{	
-    		lowestLevel = level - 5 > 0 ? level - 5 : level;
-    		highestLevel = lowestLevel + level;
-    		randomLevel = r.nextInt(highestLevel - lowestLevel);
-    	}
-	    	randomPokemon.setLevel(randomLevel);
-	    	randomPokemon.setMaxHp(randomPokemon.getLevel()* 10);
-	    	randomPokemon.setCurrentHp(randomPokemon.getMaxHp());
-	    	return randomPokemon;
+    public Pokemon getRandomPokemonFromArea(int level) {
+        List<PokemonData> pokeData = Arrays.asList(PokemonData.values());
+        ArrayList<PokemonData> collect = new ArrayList<>();
+        for (PokemonData p : pokeData) {
+            if (containsPokemon.contains(p.pokemonType)) {
+                collect.add(p);
+            }
+        }
+        int randomPokemonIndex = r.nextInt(collect.size());
+        PokemonData randomPokemonData = collect.get(randomPokemonIndex);
+        Pokemon randomPokemon = new Pokemon(randomPokemonData);
+        int lowestLevel = level - 5 > 0 ? level - 5 : level;
+        int highestLevel = lowestLevel + level;
+        int randomLevel = r.nextInt(highestLevel - lowestLevel);
+        while (randomLevel <= 0) {
+            lowestLevel = level - 5 > 0 ? level - 5 : level;
+            highestLevel = lowestLevel + level;
+            randomLevel = r.nextInt(highestLevel - lowestLevel);
+        }
+        randomPokemon.setLevel(randomLevel);
+        randomPokemon.setMaxHp(randomPokemon.getLevel() * 10);
+        randomPokemon.setCurrentHp(randomPokemon.getMaxHp());
+        return randomPokemon;
     }
-    
-    public Pokecenter getPokecenter() 
-    {
+
+    public Pokecenter getPokecenter() {
         return pokecenter;
     }
 }

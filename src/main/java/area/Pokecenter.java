@@ -4,22 +4,18 @@ import java.util.List;
 
 import general.Pokemon;
 
-public class Pokecenter 
-{
+public class Pokecenter {
 
     private final String name;
 
-    public Pokecenter(String name) 
-    {
+    public Pokecenter(String name) {
         this.name = name;
     }
 
-    public void healPokemon(List<Pokemon> pokemonToHeal) 
-    {
-    	for(Pokemon p : pokemonToHeal)
-    	{
-    		int maxHp =	p.getMaxHp();
-    		p.setCurrentHp(maxHp);		
-    	}
+    public void healPokemon(List<Pokemon> pokemonToHeal) {
+        for (Pokemon p : pokemonToHeal) {
+            int maxHp = p.getMaxHp();
+            p.setCurrentHp(maxHp);
+        }
     }
 }

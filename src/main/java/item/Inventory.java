@@ -2,18 +2,17 @@ package item;
 
 import java.util.HashMap;
 
-public class Inventory 
-{
+public class Inventory {
     protected final HashMap<ItemType, Integer> items;
-    public Inventory() 
-    {
+
+    public Inventory() {
         items = new HashMap<>();
     }
-    public HashMap<ItemType, Integer> getItems() 
-    {
+
+    public HashMap<ItemType, Integer> getItems() {
         return items;
     }
-    
+
 //    public void addItem(int amount, ItemType type) 
 //      {
 //        int currentAmount = items.getOrDefault(type, 0);
@@ -26,25 +25,21 @@ public class Inventory
 //        }
 //    }
 
-    public void removeItem(ItemType type) 
-    {
+    public void removeItem(ItemType type) {
         int currentAmount = items.getOrDefault(type, 0);
-        if (currentAmount > 0) 
-        {
+        if (currentAmount > 0) {
             items.put(type, currentAmount - 1);
-        } else 
-        {
+        } else {
             System.out.println("You don't have this item in your inventory!");
         }
     }
-    public void addItem(int amount, ItemType type) 
-    {
+
+    public void addItem(int amount, ItemType type) {
         items.merge(type, amount, Integer::sum);
     }
-    public void show() 
-    {
-        for (ItemType type : items.keySet())
-        {
+
+    public void show() {
+        for (ItemType type : items.keySet()) {
             System.out.println(type + " in stock: " + items.get(type));
         }
     }
