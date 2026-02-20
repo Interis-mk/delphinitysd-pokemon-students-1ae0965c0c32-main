@@ -5,14 +5,23 @@ import java.util.List;
 import java.util.Random;
 
 import battle.Attack;
+import jakarta.persistence.*;
 import trainer.Trainer;
 
+@Entity
+@Table(name = "pokemon")
 public class Pokemon {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Trainer owner;
+
     private final int maxPP;
     private final int currentPP;
-    private final Random r = new Random();
+    private Random r = new Random();
     private PokemonData pokedata;
-    private Trainer owner;
     private int currentHp;
     private int maxHp;
     private int level;
@@ -27,6 +36,19 @@ public class Pokemon {
         this.maxPP = pokedata.maxPp;
         this.level = 5;
         this.xpToNext = 8;
+        this.currentXp = 0;
+    }
+
+    public Pokemon() {
+        this.maxPP = 0;
+        this.currentPP = 0;
+        this.r = new Random();
+        this.pokedata = null;
+        this.owner = null;
+        this.currentHp = 0;
+        this.maxHp = 0;
+        this.level = 0;
+        this.xpToNext = 0;
         this.currentXp = 0;
     }
 
@@ -147,7 +169,7 @@ public class Pokemon {
     }
 
     public double getHpPercentage() {
-        return currentHp / maxHp * 100;
+        return (double) currentHp / maxHp * 100;
     }
 
     public void status() {
@@ -162,9 +184,6 @@ public class Pokemon {
 
 
     public boolean isKnockout() {
-        if (currentHp <= 0) {
-            return true;
-        }
-        return false;
+        return currentHp <= 0;
     }
 }

@@ -8,16 +8,34 @@ import java.util.Random;
 import general.Pokemon;
 import general.PokemonData;
 import general.PokemonType;
+import jakarta.persistence.*;
 import trainer.GymLeader;
 
+@Entity
+@Table(name = "area")
 public class Area {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private final String name;
-    private final Area nextArea;
-    private final Random r = new Random();
-    private final Pokecenter pokecenter;
+    @Transient
+    private String name;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Area nextArea;
+
+    @Transient
+    private Random r = new Random();
+
+    @Transient
+    private Pokecenter pokecenter;
+
+    @Transient
     private List<PokemonType> containsPokemon = new ArrayList<>();
+
     private boolean isUnlocked;
+
+    @OneToOne(fetch = FetchType.LAZY)
     private GymLeader gymLeader;
 
     public Area(String name, GymLeader gymLeader, boolean isUnlocked, Area nextArea, Pokecenter pokecenter) {
@@ -26,6 +44,12 @@ public class Area {
         this.isUnlocked = isUnlocked;
         this.nextArea = nextArea;
         this.pokecenter = pokecenter;
+    }
+
+    public Area() {
+        this.name = null;
+        this.nextArea = null;
+        this.pokecenter = null;
     }
 
     public void setContainsPokemon(List<PokemonType> containsPokemon) {
@@ -54,6 +78,10 @@ public class Area {
 
     public Area getNextArea() {
         return nextArea;
+    }
+
+    public void setNextArea(Area nextArea) {
+        this.nextArea = nextArea;
     }
 
     public Pokemon getRandomPokemonFromArea(int level) {

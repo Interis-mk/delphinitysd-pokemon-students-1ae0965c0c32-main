@@ -13,15 +13,36 @@ import general.PokemonType;
 import item.Inventory;
 import item.ItemType;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "trainer")
 public class Trainer {
-    private final String name;
-    private final ArrayList<Pokemon> pokemonCollection = new ArrayList<>();
-    private final Inventory inventory = new Inventory();
-    private final Random r = new Random();
-    private final List<Badge> badges = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Pokemon> pokemonCollection = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Inventory inventory = new Inventory();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Badge> badges = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Pokemon activePokemon;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Area currentArea;
+
+    private final Random r = new Random();
     private double money = 100;
+
+    public Trainer() {}
 
     public Trainer(String name, Area startingArea) {
         this.name = name;
@@ -45,7 +66,7 @@ public class Trainer {
         return name;
     }
 
-    public ArrayList<Pokemon> getPokemonCollection() {
+    public List<Pokemon> getPokemonCollection() {
         return pokemonCollection;
     }
 
@@ -138,8 +159,7 @@ public class Trainer {
     public Pokemon findPokemon() {
         System.out.println("----------------");
         System.out.println("Searching pokemon ");
-        boolean isSearching = true;
-        while (isSearching) {
+        while (true) {
             System.out.print(".");
             int findChance = r.nextInt(100);
             if (findChance > 80) {
@@ -152,7 +172,7 @@ public class Trainer {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    while (isSearching) {
+                    while (true) {
                         try {
                             Thread.sleep(250);
                         } catch (InterruptedException e1) {
@@ -162,7 +182,6 @@ public class Trainer {
                 }
             }
         }
-        return null;
     }
 
     public void showBadges() {

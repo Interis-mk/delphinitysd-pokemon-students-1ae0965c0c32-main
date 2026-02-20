@@ -1,8 +1,15 @@
 package item;
 
+import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Inventory {
+@Entity
+@Table(name = "inventory")
+public class Inventory implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     protected final HashMap<ItemType, Integer> items;
 
     public Inventory() {

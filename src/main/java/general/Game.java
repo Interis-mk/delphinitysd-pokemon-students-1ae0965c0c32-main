@@ -10,13 +10,14 @@ import item.Shop;
 import trainer.Badge;
 import trainer.GymLeader;
 import trainer.Trainer;
-
+import jakarta.persistence.*;
 
 public class Game {
 
     private static final ArrayList<Area> areas = new ArrayList<>();
     private static final Scanner sc = new Scanner(System.in);
     private static Trainer trainer = null;
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("pokemonPU");
 
     // set up the game in this static block
     static {
@@ -30,27 +31,29 @@ public class Game {
 
         // VIRIDIAN City
         Pokecenter viridianCenter = new Pokecenter("Viridian City's Pokecenter");
-        Area viridianCity = new Area("Viridian city", null, true, pewterCity, viridianCenter);
+        Area viridianCity = new Area("Viridian city", null, true, null, viridianCenter);
         Shop ViridianCityShop = new Shop("Viridian City Shop");
         viridianCity.setContainsPokemon(
                 Arrays.asList(PokemonType.GRASS, PokemonType.FLYING, PokemonType.BUG, PokemonType.GROUND));
 
         // PALLET Town
         Pokecenter palletCenter = new Pokecenter("Pallet Town's Pokecenter");
-        Area palletTown = new Area("Pallet town", null, true, viridianCity, palletCenter);
+        Area palletTown = new Area("Pallet town", null, true, null, palletCenter);
         Shop PalletTownShop = new Shop("PalletTownShop");
         palletTown.setContainsPokemon(
                 Arrays.asList(PokemonType.GRASS, PokemonType.FLYING, PokemonType.BUG, PokemonType.GROUND));
 
-        //CERULEAN City
+        // CERULEAN City
         Pokecenter ceruleanCenter = new Pokecenter("Cerulean City's Pokecenter");
-        Area ceruleanCity = new Area("Cerulean city", null, true, pewterCity, ceruleanCenter);
+        Area ceruleanCity = new Area("Cerulean city", null, true, null, ceruleanCenter);
         Shop ceruleanCityShop = new Shop("Cerulean City Shop");
 
         areas.add(palletTown);
         areas.add(viridianCity);
         areas.add(pewterCity);
         areas.add(ceruleanCity);
+
+        saveAllAreasWithNextArea(areas);
 
         // SETUP gym leaders
         GymLeader pewterLeader = new GymLeader("Bram", new Badge("Boulder Badge"), pewterCity);
@@ -64,20 +67,71 @@ public class Game {
 
     }
 
+    private static void saveGame() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(trainer);
+            tx.commit();
+            System.out.println("Game saved successfully.");
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    private static Trainer loadGame(String trainerName) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Trainer> query = em.createQuery(
+                "SELECT t FROM Trainer t " +
+                "LEFT JOIN FETCH t.pokemonCollection " +
+                "LEFT JOIN FETCH t.currentArea ca " +
+                "LEFT JOIN FETCH ca.nextArea " +
+                "WHERE t.name = :name", Trainer.class);
+            query.setParameter("name", trainerName);
+            Trainer loadedTrainer = query.getResultStream().findFirst().orElse(null);
+            if (loadedTrainer != null) {
+                // Initialize badges collection while session is open
+                loadedTrainer.getBadges().size();
+                System.out.println("Game loaded for trainer: " + trainerName);
+            }
+            return loadedTrainer;
+        } finally {
+            em.close();
+        }
+    }
+
     public static void main(String[] args) {
 
         System.out.println("----------------");
         System.out.println("Welcome new trainer, what's your name?");
         String name = sc.nextLine();
-        trainer = new Trainer(name, areas.get(0));
+        System.out.println("Do you want to load a saved game? (yes/no)");
+        String load = sc.nextLine();
+        if (load.equalsIgnoreCase("yes")) {
+            trainer = loadGame(name);
+            if (trainer == null) {
+                System.out.println("No saved game found. Starting new game.");
+                trainer = new Trainer(name, areas.get(0));
+            }
+        } else {
+            trainer = new Trainer(name, areas.get(0));
+        }
         System.out.println("Hi, " + trainer.getName());
-        Pokemon firstPokemon = chooseFirstPokemon();
-        firstPokemon.setOwner(trainer);
-        trainer.getPokemonCollection().add(firstPokemon);
-        System.out.println("You now have " + trainer.getPokemonCollection().size() + " pokemon in your collection!");
+        if (trainer.getPokemonCollection().isEmpty()) {
+            Pokemon firstPokemon = chooseFirstPokemon();
+            firstPokemon.setOwner(trainer);
+            trainer.getPokemonCollection().add(firstPokemon);
+            System.out.println("You now have " + trainer.getPokemonCollection().size() + " pokemon in your collection!");
+        }
         System.out.println("----------------");
 
         while (true) {
+
             showGameOptions();
         }
     }
@@ -275,8 +329,59 @@ public class Game {
 
 
     private static void quit() {
+        saveGame();
         System.out.println("----------------");
         System.out.println("Goodbye");
         System.exit(0);
+    }
+
+    private static void saveAllAreas(List<Area> areas) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            for (Area area : areas) {
+                em.merge(area);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    private static void saveAllAreasWithNextArea(List<Area> areas) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            for (Area area : areas) {
+                area.setNextArea(null);
+                em.persist(area);
+            }
+            em.flush();
+            for (Area area : areas) {
+                em.refresh(area);
+            }
+            Area palletTown = areas.get(0);
+            Area viridianCity = areas.get(1);
+            Area pewterCity = areas.get(2);
+            Area ceruleanCity = areas.get(3);
+            palletTown.setNextArea(viridianCity);
+            viridianCity.setNextArea(pewterCity);
+            pewterCity.setNextArea(null);
+            ceruleanCity.setNextArea(pewterCity);
+            for (Area area : areas) {
+                em.merge(area);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 }
